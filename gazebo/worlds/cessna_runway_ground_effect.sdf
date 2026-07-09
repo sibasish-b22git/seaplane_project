@@ -1,0 +1,247 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <world name="runway">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+    <plugin filename="gz-sim-navsat-system"
+      name="gz::sim::systems::NavSat">
+    </plugin>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <scene>
+      <ambient>1.0 1.0 1.0</ambient>
+      <background>0.8 0.8 0.8</background>
+      <sky></sky>
+    </scene>
+
+    <spherical_coordinates>
+      <latitude_deg>-35.363262</latitude_deg>
+      <longitude_deg>149.165237</longitude_deg>
+      <elevation>584</elevation>
+      <heading_deg>0</heading_deg>
+      <surface_model>EARTH_WGS84</surface_model>
+    </spherical_coordinates>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.8 0.8 0.8 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="axes">
+      <static>1</static>
+      <link name="link">
+        <visual name="r">
+          <cast_shadows>0</cast_shadows>
+          <pose>5 0 0.1 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>10 0.01 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <emissive>1 0 0 1</emissive>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name="g">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 5 0.1 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 10 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0 1 0 1</ambient>
+            <diffuse>0 1 0 1</diffuse>
+            <emissive>0 1 0 1</emissive>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name="b">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 0 5.1 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 10</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0 0 1 1</ambient>
+            <diffuse>0 0 1 1</diffuse>
+            <emissive>0 0 1 1</emissive>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="invisible_hard_deck">
+      <static>true</static>
+      <pose>0 0 -10.0 0 0 0</pose>
+      <link name="link">
+        <collision name="deck_collision">
+          <geometry>
+            <box><size>2000 2000 0.02</size></box>
+          </geometry>
+          <surface>
+            <contact><collide_bitmask>0x02</collide_bitmask></contact>
+          </surface>
+        </collision>
+      </link>
+    </model>
+    
+    <model name="invisible_hard_ceil">
+      <static>true</static>
+      <pose>0 0 5 0 0 0</pose>
+      <link name="link">
+        <collision name="ceil_collision">
+          <geometry>
+            <box><size>2000 2000 0.02</size></box>
+          </geometry>
+          <surface>
+            <contact><collide_bitmask>0x02</collide_bitmask></contact>
+          </surface>
+        </collision>
+      </link>
+    </model>
+    
+    <include>
+      <uri>model://runway</uri>
+    </include>
+
+    <include>
+      <pose degrees="true">0 0 1.0 0 0 90</pose>
+      <uri>model://cessna_aircraft_ardupilot</uri>
+    </include>
+    
+<include><name>obs_01</name><pose>1.4 195.3 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_02</name><pose>16.2 208.9 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_04</name><pose>57.1 232.1 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_06</name><pose>93.3 261.0 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_07</name><pose>107.6 269.4 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_08</name><pose>130.3 273.7 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_10</name><pose>156.7 289.3 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_12</name><pose>193.5 298.6 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_13</name><pose>201.2 297.7 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_15</name><pose>232.8 300.9 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_17</name><pose>251.1 291.9 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_19</name><pose>273.4 278.9 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_20</name><pose>280.0 265.2 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_22</name><pose>292.4 251.6 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_23</name><pose>292.0 232.1 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_25</name><pose>296.5 212.5 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_26</name><pose>296.4 196.4 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_28</name><pose>296.2 180.1 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_29</name><pose>294.8 159.1 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_30</name><pose>294.2 148.3 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_32</name><pose>277.7 132.5 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_34</name><pose>264.7 111.7 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_36</name><pose>242.0 104.4 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_37</name><pose>235.9 104.4 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_38</name><pose>222.4 98.2 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_40</name><pose>192.2 101.7 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_41</name><pose>180.6 108.7 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_43</name><pose>140.4 115.5 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_45</name><pose>106.7 131.3 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_47</name><pose>79.2 156.1 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_48</name><pose>58.3 162.2 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_49</name><pose>37.0 175.3 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_51</name><pose>0.9 197.3 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_53</name><pose>-40.3 229.0 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_54</name><pose>-60.5 234.2 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_56</name><pose>-95.3 258.5 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_57</name><pose>-113.5 264.5 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_58</name><pose>-129.2 276.2 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_60</name><pose>-165.1 292.8 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_62</name><pose>-194.8 295.0 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_64</name><pose>-215.6 303.4 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_66</name><pose>-238.0 299.4 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+
+<include><name>obs_69</name><pose>-272.6 282.0 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_70</name><pose>-274.6 271.4 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_72</name><pose>-294.1 246.2 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_74</name><pose>-302.0 225.7 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_75</name><pose>-303.8 212.6 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+
+<include><name>obs_78</name><pose>-296.8 170.5 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_79</name><pose>-295.5 164.0 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_81</name><pose>-287.9 140.2 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_83</name><pose>-276.3 124.1 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_84</name><pose>-267.2 112.7 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+<include><name>obs_86</name><pose>-238.9 103.6 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_88</name><pose>-217.6 105.1 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_89</name><pose>-203.7 100.7 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_90</name><pose>-186.8 98.1 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_92</name><pose>-163.0 110.5 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_93</name><pose>-147.5 116.9 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+
+
+<include><name>obs_96</name><pose>-97.3 139.5 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+<include><name>obs_97</name><pose>-73.2 149.4 0 0 0 0</pose><uri>model://telephone_pole</uri></include>
+<include><name>obs_98</name><pose>-55.7 162.5 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+
+<include><name>obs_100</name><pose>-18.3 190.8 0 0 0 0</pose><uri>model://Pine Tree</uri></include>
+  </world>
+</sdf>

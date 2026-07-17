@@ -7,7 +7,7 @@ def generate_launch_description():
     # 1. The Mission Commander (Your Python Script)
     autopilot_node = Node(
         package='auto_plane',
-        executable='waypoint_nav',
+        executable='plane_waypoint_nav',
         name='plane_autopilot_node',
         output='screen'
     )
